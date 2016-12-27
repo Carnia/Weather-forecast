@@ -1,0 +1,32 @@
+/*
+* @Author: Carnia
+* @Date:   2016-12-21 20:41:37
+* @Last Modified by:   Carnia
+* @Last Modified time: 2016-12-22 12:01:26
+*/
+.w{
+	width: 1100px;
+	margin:0 auto;
+}
+header{
+	text-align: center;
+	background-color: #ccc;
+}
+h1{
+	color:#ccc;
+	font-size: 30px;
+	text-shadow: -1px -1px #fff,1px 1px #000;
+}
+.content{
+	padding-top: 20px;
+	border-top: 1px solid #000;
+}
+table{
+	border-collapse: collapse;
+	border: 1px solid #000;
+}
+table th,table td,table tr{
+	text-align: center;	
+	padding: 10px;
+	border: 1px solid #000;
+}

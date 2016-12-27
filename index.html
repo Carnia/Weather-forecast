@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>天气预报</title>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/index.css">
+	<style>
+	</style>
+	<script src="libs/angular.min.js"></script>
+	<script src="js/getLocation.js"></script>
+	<script>
+	var aa=angular.module('weather',[]);
+		aa.controller('wController',['$scope','$log','$http',function($scope,$log,$http){
+			$scope.location='shanghai';
+			$scope.get=function(location){
+				// $log.log($scope.location);
+				$http({
+					method:'get',
+					// url:'index2.json'
+					url:'http://api.openweathermap.org/data/2.5/forecast?q='+location+',CN&mode=json&APPID=ea8f2be7a7dff13406bc89ca582f5e2d'
+				}).success(function(data){
+					// var  hsd=9/5*wd+32;
+					$log.warn(data);
+					$scope.lists=data.list;
+					// $log.log($scope.lists);
+					$scope.tempMax=[];
+					$scope.tempMin=[];
+					$scope.temp=[];
+					$scope.time=[];
+					$scope.description=[];
+					$scope.main=[];
+					$scope.winddeg=[];
+					$scope.windspeed=[];
+					for (var i = 0; i <$scope.lists.length; i++) {
+						$scope.tempMax.push(($scope.lists[i].main.temp_max-273).toFixed(2));
+						$scope.tempMin.push(($scope.lists[i].main.temp_min-273).toFixed(2));
+						$scope.temp.push(($scope.lists[i].main.temp-273).toFixed(2));
+						$scope.time.push(($scope.lists[i].dt_txt));
+						$scope.description.push(($scope.lists[i].weather[0].description));
+						$scope.main.push(($scope.lists[i].weather[0].main));
+						$scope.winddeg.push(($scope.lists[i].wind.deg));
+						$scope.windspeed.push(($scope.lists[i].wind.speed));
+					};
+					// $log.log($scope.tempMax);
+					// $log.log($scope.tempMin);
+					// $log.log($scope.temp);
+					// $log.log($scope.time);
+				});
+			}
+			$scope.get($scope.location);
+		}])
+	</script>
+</head>
+<body>
+	<header class='w'>
+		<h1>5天天气预报</h1>
+	</header>
+	<div class="w content" ng-app='weather' ng-controller='wController'>
+		<input type="text" placeholder='输入想要查询的城市名' ng-model='location'> 
+		<button ng-click='get(location)'>查询</button>
+		<table>
+			<tr>
+				<th>time</th>
+				<th>current-temp(℃)</th>
+				<th>temp-scope(℃)</th>
+				<th>main-description</th>
+				<th>winddeg</th>
+				<th>windspeed(m/s)</th>
+			</tr>
+			<tr ng-repeat='(i,v) in lists'>
+				<td>{{time[i]}}</td>
+				<td>{{temp[i]}}</td>
+				<td>{{tempMin[i]}}-{{tempMax[i]}}</td>
+				<td>{{main[i]}}【{{description[i]}}】</td>
+				<td>{{winddeg[i]}}</td>
+				<td>{{windspeed[i]}}</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
