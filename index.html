@@ -17,8 +17,8 @@
 				// $log.log($scope.location);
 				$http({
 					method:'get',
-					// url:'index2.json'
-					url:'http://api.openweathermap.org/data/2.5/forecast?q='+location+',CN&mode=json&APPID=ea8f2be7a7dff13406bc89ca582f5e2d'
+					url:'index2.json'
+					//url:'http://api.openweathermap.org/data/2.5/forecast?q='+location+',CN&mode=json&APPID=ea8f2be7a7dff13406bc89ca582f5e2d'
 				}).success(function(data){
 					// var  hsd=9/5*wd+32;
 					$log.warn(data);
